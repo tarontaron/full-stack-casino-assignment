@@ -12,3 +12,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  PLAYER
+  OPERATOR
+}
+
+model User {
+  id Int @id @default(autoincrement())
+
+  role Role @default(PLAYER)
+  email String @unique
+  password_hash String
+
+  first_name String
+  last_name String
+  balance Decimal @default(1000.00)
+
+  deleted_at DateTime?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  @@map("users")
+}
