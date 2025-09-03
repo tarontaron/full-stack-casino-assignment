@@ -2003,6 +2003,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/bcrypt@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "@types/bcrypt@npm:6.0.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 628844016504c0d36047ed6c8e97385423c7b6ec6c208569ade8f6f2c685489a5134a38ab61d2ead2c6059983c8804e802d48155d56995805962004ff65c3b6b
+  languageName: node
+  linkType: hard
+
 "@types/body-parser@npm:*":
   version: 1.19.6
   resolution: "@types/body-parser@npm:1.19.6"
@@ -3078,6 +3087,7 @@ __metadata:
     "@nestjs/schematics": ^11.0.0
     "@nestjs/testing": ^11.0.1
     "@prisma/client": ^6.15.0
+    "@types/bcrypt": ^6.0.0
     "@types/express": ^5.0.0
     "@types/jest": ^30.0.0
     "@types/jsonwebtoken": ^9.0.10
