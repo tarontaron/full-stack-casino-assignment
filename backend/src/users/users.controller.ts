@@ -1,4 +1,20 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Role } from '@prisma/client';
+
+import { Roles } from '../common/decorators/roles.decorator';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+
+import { UsersService } from './users.service';
+import { RolesGuard } from '../common/guards/roles.guard';
 
 @Controller({ path: 'users', version: '1' })
-export class UsersController {}
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Get()
+  @Roles(Role.OPERATOR)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  getAll() {
+    return this.usersService.getAll();
+  }
+}

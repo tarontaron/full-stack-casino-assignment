@@ -4,15 +4,13 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from '@nestjs/common';
-
-import { AuthService } from '../../auth/auth.service';
+import jwt from 'jsonwebtoken';
 
 import { AUTH_ERRORS } from '../constants/errors';
+import { JWT_SECRET } from '../constants/env';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
-
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest();
     const authHeader = req.headers['authorization'];
@@ -22,7 +20,7 @@ export class JwtAuthGuard implements CanActivate {
     const [, token] = authHeader.split(' ');
     if (!token) throw new UnauthorizedException(AUTH_ERRORS.INVALID_TOKEN);
 
-    const payload = this.authService.verifyToken(token);
+    const payload = jwt.verify(token, JWT_SECRET);
     req.user = payload;
 
     return true;

@@ -11,6 +11,16 @@ import { userPublicFields } from './users.constants';
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getAll(): Promise<TPublicUser[]> {
+    return this.prisma.user.findMany({
+      select: userPublicFields,
+    });
+  }
+
+  async getTotalCount(): Promise<number> {
+    return this.prisma.user.count();
+  }
+
   async getById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { id },
