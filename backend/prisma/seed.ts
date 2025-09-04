@@ -13,10 +13,17 @@ const users = [
   },
 ];
 
+const games = [
+  { name: 'Slots', rtp: 96.0 },
+  { name: 'Roulette', rtp: 97.3 },
+  { name: 'Blackjack', rtp: 99.5 },
+];
+
 const main = async () => {
   try {
     // Clear existing users
     await prisma.user.deleteMany();
+    await prisma.game.deleteMany();
 
     for (const user of users) {
       const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -28,6 +35,15 @@ const main = async () => {
           last_name: user.last_name,
           role: user.role,
           password_hash: hashedPassword,
+        },
+      });
+    }
+
+    for (const game of games) {
+      await prisma.game.create({
+        data: {
+          name: game.name,
+          rtp: game.rtp,
         },
       });
     }

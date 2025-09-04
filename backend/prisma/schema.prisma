@@ -18,6 +18,18 @@ enum Role {
   OPERATOR
 }
 
+enum TransactionType {
+  BET
+  DEPOSIT
+  WITHDRAWAL
+  WIN
+}
+
+enum TransactionOutcome {
+  WIN
+  LOSS
+}
+
 model User {
   id Int @id @default(autoincrement())
 
@@ -29,9 +41,49 @@ model User {
   last_name String
   balance Decimal @default(1000.00)
 
+  transactions Transaction[]
+
   deleted_at DateTime?
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
   @@map("users")
+}
+
+model Transaction {
+  id Int @id @default(autoincrement())
+
+  amount Decimal
+  type TransactionType
+  outcome TransactionOutcome?
+
+  balance Decimal
+  balance_after Decimal
+
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+
+  game_id Int?
+  game Game? @relation(fields: [game_id], references: [id])
+
+  deleted_at DateTime?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  @@map("transactions")
+}
+
+model Game {
+  id Int @id @default(autoincrement())
+
+  name String
+  rtp Decimal @db.Decimal(5, 2)
+
+  transactions Transaction[]
+
+  deleted_at DateTime?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  @@map("games")
 }
