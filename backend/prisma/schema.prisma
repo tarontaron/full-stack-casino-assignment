@@ -74,9 +74,6 @@ model Transaction {
   type TransactionType
   outcome TransactionOutcome?
 
-  balance Decimal @db.Decimal(15,2)
-  balance_after Decimal @db.Decimal(15,2)
-
   wallet_id Int
   wallet Wallet @relation(fields: [wallet_id], references: [id])
 
