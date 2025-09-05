@@ -21,10 +21,10 @@ export class AuthService {
   constructor(private readonly usersService: UsersService) {}
 
   async validateUser(payload: ValidateDto): Promise<User> {
-    const { email, password } = payload;
+    const { email, password, role } = payload;
 
     const user = await this.usersService.getByEmail(email);
-    if (!user) {
+    if (!user || user.role !== role) {
       throw new UnauthorizedException(AUTH_ERRORS.INVALID_CREDENTIALS);
     }
 
