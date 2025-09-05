@@ -5,11 +5,25 @@ const prisma = new PrismaClient();
 
 const users = [
   {
-    email: 'testbot6654@gmail.com',
+    email: 'player@test.com',
     password: 'Password1*',
     first_name: 'Test',
     last_name: 'Player',
     role: Role.PLAYER,
+  },
+  {
+    email: 'operator@test.com',
+    password: 'Password1*',
+    first_name: 'Test',
+    last_name: 'Operator',
+    role: Role.OPERATOR,
+  },
+];
+
+const wallets = [
+  {
+    user_id: 1,
+    balance: 1000.0,
   },
 ];
 
@@ -21,9 +35,10 @@ const games = [
 
 const main = async () => {
   try {
-    // Clear existing users
-    await prisma.user.deleteMany();
-    await prisma.game.deleteMany();
+    await prisma.$executeRawUnsafe(`
+      TRUNCATE TABLE "users", "wallets", "transactions", "bets", "games"
+      RESTART IDENTITY CASCADE;
+    `);
 
     for (const user of users) {
       const hashedPassword = await bcrypt.hash(user.password, 10);
@@ -35,6 +50,15 @@ const main = async () => {
           last_name: user.last_name,
           role: user.role,
           password_hash: hashedPassword,
+        },
+      });
+    }
+
+    for (const wallet of wallets) {
+      await prisma.wallet.create({
+        data: {
+          user_id: wallet.user_id,
+          balance: wallet.balance,
         },
       });
     }

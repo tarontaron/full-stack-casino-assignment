@@ -39,7 +39,24 @@ model User {
 
   first_name String
   last_name String
-  balance Decimal @default(1000.00)
+
+  bets Bet[]
+  wallet Wallet?
+
+  deleted_at DateTime?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  @@map("users")
+  @@index([role])
+}
+
+model Wallet {
+  id Int @id @default(autoincrement())
+  balance Decimal @db.Decimal(15,2) @default(1000.00)
+
+  user_id Int @unique
+  user User @relation(fields: [user_id], references: [id])
 
   transactions Transaction[]
 
@@ -47,30 +64,32 @@ model User {
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
-  @@map("users")
+  @@map("wallets")
 }
 
 model Transaction {
   id Int @id @default(autoincrement())
 
-  amount Decimal
+  amount Decimal @db.Decimal(15,2)
   type TransactionType
   outcome TransactionOutcome?
 
-  balance Decimal
-  balance_after Decimal
+  balance Decimal @db.Decimal(15,2)
+  balance_after Decimal @db.Decimal(15,2)
 
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
+  wallet_id Int
+  wallet Wallet @relation(fields: [wallet_id], references: [id])
 
-  game_id Int?
-  game Game? @relation(fields: [game_id], references: [id])
+  bet_id Int?
+  bet Bet? @relation(fields: [bet_id], references: [id])
 
   deleted_at DateTime?
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
   @@map("transactions")
+  @@index([wallet_id])
+  @@index([bet_id])
 }
 
 model Game {
@@ -79,11 +98,33 @@ model Game {
   name String
   rtp Decimal @db.Decimal(5, 2)
 
-  transactions Transaction[]
+  bets Bet[]
 
   deleted_at DateTime?
   updated_at DateTime @updatedAt
   created_at DateTime @default(now())
 
   @@map("games")
+}
+
+model Bet {
+  id Int @id @default(autoincrement())
+
+  amount Decimal @db.Decimal(15,2)
+
+  user_id Int
+  user User @relation(fields: [user_id], references: [id])
+
+  game_id Int
+  game Game @relation(fields: [game_id], references: [id])
+
+  transactions Transaction[]
+
+  deleted_at DateTime?
+  updated_at DateTime @updatedAt
+  created_at DateTime @default(now())
+
+  @@map("bets")
+  @@index([user_id])
+  @@index([game_id])
 }
