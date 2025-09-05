@@ -8,6 +8,7 @@ import { TransactionsModule } from './transactions/transactions.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { WalletsModule } from './wallets/wallets.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AppService } from './app.service';
     AuthModule,
     GamesModule,
     TransactionsModule,
+    WalletsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

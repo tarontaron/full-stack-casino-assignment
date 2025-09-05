@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma/prisma.service';
 
 import { CreateDto } from './dto';
 import type { TPublicUser } from './users.types';
-import { userPublicFields } from './users.constants';
+import { userResponseFields } from './users.constants';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +13,7 @@ export class UsersService {
 
   async getAll(): Promise<TPublicUser[]> {
     return this.prisma.user.findMany({
-      select: userPublicFields,
+      select: userResponseFields,
     });
   }
 
@@ -24,6 +24,7 @@ export class UsersService {
   async getById(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { id },
+      select: userResponseFields,
     });
   }
 
@@ -44,7 +45,7 @@ export class UsersService {
         first_name,
         last_name,
       },
-      select: userPublicFields,
+      select: userResponseFields,
     });
   }
 }

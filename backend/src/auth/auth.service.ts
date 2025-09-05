@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import {
   Injectable,
   ConflictException,
@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { Role, User } from '@prisma/client';
 
+import type { ApplicationJWT } from '../common/types';
 import { JWT_SECRET } from '../common/constants/env';
 import { AUTH_ERRORS } from '../common/constants/errors';
 
@@ -56,9 +57,9 @@ export class AuthService {
     return this.generateToken(createdUser);
   }
 
-  verifyToken(token: string): JwtPayload {
+  verifyToken(token: string): ApplicationJWT {
     try {
-      return jwt.verify(token, JWT_SECRET) as JwtPayload;
+      return jwt.verify(token, JWT_SECRET) as ApplicationJWT;
     } catch (e) {
       console.log(e);
       throw new UnauthorizedException(AUTH_ERRORS.INVALID_TOKEN);
@@ -66,7 +67,7 @@ export class AuthService {
   }
 
   generateToken(user: TPublicUser): TTokenResponse {
-    const payload: JwtPayload = {
+    const payload: ApplicationJWT = {
       sub: `${user.id}`,
       email: user.email,
       role: user.role,
