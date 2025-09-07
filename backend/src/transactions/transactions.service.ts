@@ -23,7 +23,7 @@ export class TransactionsService {
     payload: CreateDto,
     tx?: Prisma.TransactionClient,
   ): Promise<Transaction> {
-    const { wallet_id, amount, type } = payload;
+    const { bet_id, wallet_id, amount, type, outcome } = payload;
 
     const prismaClient = tx ?? this.prisma;
 
@@ -31,7 +31,9 @@ export class TransactionsService {
       data: {
         type,
         amount,
+        bet_id,
         wallet_id,
+        outcome,
       },
     });
   }

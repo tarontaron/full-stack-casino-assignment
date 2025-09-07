@@ -1,5 +1,5 @@
-import { IsEnum, IsInt, IsNumber, Min } from 'class-validator';
-import { TransactionType } from '@prisma/client';
+import { IsEnum, IsInt, IsNumber, IsOptional, Min } from 'class-validator';
+import { TransactionOutcome, TransactionType } from '@prisma/client';
 
 export class CreateDto {
   @IsInt()
@@ -11,4 +11,12 @@ export class CreateDto {
 
   @IsEnum(TransactionType)
   type: TransactionType;
+
+  @IsInt()
+  @IsOptional()
+  bet_id?: number;
+
+  @IsOptional()
+  @IsEnum(TransactionOutcome)
+  outcome?: TransactionOutcome;
 }

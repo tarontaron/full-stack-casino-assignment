@@ -28,9 +28,9 @@ const wallets = [
 ];
 
 const games = [
-  { name: 'Slots', rtp: 96.0 },
-  { name: 'Roulette', rtp: 97.3 },
-  { name: 'Blackjack', rtp: 99.5 },
+  { name: 'Slots', rtp: 0 },
+  { name: 'Roulette', rtp: 0 },
+  { name: 'Blackjack', rtp: 0 },
 ];
 
 const main = async () => {

@@ -9,8 +9,7 @@ import { StatisticService } from './statistic.service';
 
 @Controller({ path: 'statistic', version: '1' })
 export class StatisticController {
-  constructor(private statisticService: StatisticService) {
-  }
+  constructor(private statisticService: StatisticService) {}
 
   @Get('playersByRevenue')
   @UseGuards(JwtAuthGuard, RolesGuard)

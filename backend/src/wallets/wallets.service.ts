@@ -6,10 +6,18 @@ import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class WalletsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
 
-  getWalletByUserId(user_id: number): Promise<Wallet | null> {
-    return this.prisma.wallet.findUnique({
+  ) {}
+
+  getWalletByUserId(
+    user_id: number,
+    tx?: Prisma.TransactionClient,
+  ): Promise<Wallet | null> {
+    const prismaClient = tx ?? this.prisma;
+
+    return prismaClient.wallet.findUnique({
       where: { user_id },
     });
   }

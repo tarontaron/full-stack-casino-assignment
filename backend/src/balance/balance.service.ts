@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TransactionType } from '@prisma/client';
+import { Prisma, TransactionType } from '@prisma/client';
 
 import { BALANCE_ERRORS, COMMON_ERRORS } from '../common/constants/errors';
 import { PrismaService } from '../prisma/prisma.service';
@@ -34,6 +34,54 @@ export class BalanceService {
     }
 
     return wallet.balance.toNumber();
+  }
+
+  async incrementBalance(
+    user_id: number,
+    amount: number,
+    tx?: Prisma.TransactionClient,
+  ): Promise<number> {
+    const wallet = await this.walletsService.getWalletByUserId(user_id, tx);
+    if (!wallet) {
+      throw new NotFoundException(BALANCE_ERRORS.WALLET_NOT_FOUND);
+    }
+
+    const updatedWallet = await this.walletsService.incrementWalletBalanceById(
+      wallet.id,
+      amount,
+      tx,
+    );
+
+    this.balanceGateway.sendUserBalance(
+      user_id,
+      updatedWallet.balance.toNumber(),
+    );
+
+    return updatedWallet.balance.toNumber();
+  }
+
+  async decrementBalance(
+    user_id: number,
+    amount: number,
+    tx?: Prisma.TransactionClient,
+  ): Promise<number> {
+    const wallet = await this.walletsService.getWalletByUserId(user_id, tx);
+    if (!wallet) {
+      throw new NotFoundException(BALANCE_ERRORS.WALLET_NOT_FOUND);
+    }
+
+    const updatedWallet = await this.walletsService.decrementWalletBalanceById(
+      wallet.id,
+      amount,
+      tx,
+    );
+
+    this.balanceGateway.sendUserBalance(
+      user_id,
+      updatedWallet.balance.toNumber(),
+    );
+
+    return updatedWallet.balance.toNumber();
   }
 
   async deposit(user_id: number, payload: DepositDto): Promise<boolean> {
