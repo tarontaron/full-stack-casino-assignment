@@ -14,4 +14,10 @@ export interface AuthenticatedRequest extends FastifyRequest {
 
 export interface AuthenticatedWs extends WebSocket {
   user: ApplicationJWT;
+  connectionId: string;
 }
+
+export type TSocketResponseModel<T = unknown> = {
+  data: T;
+  event: string;
+};

@@ -8,6 +8,7 @@ import { WalletsService } from '../wallets/wallets.service';
 import { TransactionsService } from '../transactions/transactions.service';
 
 import { DepositDto, WithdrawDto } from './dto';
+import { BalanceGateway } from './balance.gateway';
 
 @Injectable()
 export class BalanceService {
@@ -16,6 +17,7 @@ export class BalanceService {
     private readonly usersService: UsersService,
     private readonly walletsService: WalletsService,
     private readonly transactionsService: TransactionsService,
+    private readonly balanceGateway: BalanceGateway,
   ) {}
 
   async getBalanceByUserId(user_id: number): Promise<number> {
@@ -42,7 +44,7 @@ export class BalanceService {
       throw new NotFoundException(BALANCE_ERRORS.WALLET_NOT_FOUND);
     }
 
-    await this.prisma.$transaction(async (tx) => {
+    const { updatedWallet } = await this.prisma.$transaction(async (tx) => {
       const transaction = await this.transactionsService.create(
         {
           amount,
@@ -62,6 +64,11 @@ export class BalanceService {
       return { transaction, updatedWallet };
     });
 
+    this.balanceGateway.sendUserBalance(
+      user_id,
+      updatedWallet.balance.toNumber(),
+    );
+
     return true;
   }
 
@@ -79,7 +86,7 @@ export class BalanceService {
       throw new NotFoundException(BALANCE_ERRORS.INSUFFICIENT_FUNDS);
     }
 
-    await this.prisma.$transaction(async (tx) => {
+    const { updatedWallet } = await this.prisma.$transaction(async (tx) => {
       const transaction = await this.transactionsService.create(
         {
           amount,
@@ -98,6 +105,11 @@ export class BalanceService {
 
       return { transaction, updatedWallet };
     });
+
+    this.balanceGateway.sendUserBalance(
+      user_id,
+      updatedWallet.balance.toNumber(),
+    );
 
     return true;
   }
