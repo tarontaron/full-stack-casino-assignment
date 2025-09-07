@@ -7,9 +7,10 @@ import { TransactionsModule } from '../transactions/transactions.module';
 
 import { BalanceService } from './balance.service';
 import { BalanceController } from './balance.controller';
+import { BalanceGateway } from './balance.gateway';
 
 @Module({
-  providers: [BalanceService, PrismaService],
+  providers: [BalanceService, BalanceGateway, PrismaService],
   controllers: [BalanceController],
   imports: [UsersModule, WalletsModule, TransactionsModule],
   exports: [BalanceService],

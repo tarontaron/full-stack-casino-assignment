@@ -1678,6 +1678,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nestjs/platform-ws@npm:^11.1.6":
+  version: 11.1.6
+  resolution: "@nestjs/platform-ws@npm:11.1.6"
+  dependencies:
+    tslib: 2.8.1
+    ws: 8.18.3
+  peerDependencies:
+    "@nestjs/common": ^11.0.0
+    "@nestjs/websockets": ^11.0.0
+    rxjs: ^7.1.0
+  checksum: bfa5726ce1eaec5392da9076720c438b5b17e7328c70801dfc5aa9255a68438bee1d9e79dd0d0b1d6c084fab7804b07e2157e121d4bd336f9e5177bbf62bf19f
+  languageName: node
+  linkType: hard
+
 "@nestjs/schematics@npm:^11.0.0, @nestjs/schematics@npm:^11.0.1":
   version: 11.0.7
   resolution: "@nestjs/schematics@npm:11.0.7"
@@ -1709,6 +1723,26 @@ __metadata:
     "@nestjs/platform-express":
       optional: true
   checksum: 421122bc299687a1f3cce4f2db9eb666d4c4408d3beb9f3857c5ceedbcbda6b2b070c1e26a5514c80bc798a1b50fea81c61fe8b24a61f703ff13d4f9ec8113a4
+  languageName: node
+  linkType: hard
+
+"@nestjs/websockets@npm:^11.1.6":
+  version: 11.1.6
+  resolution: "@nestjs/websockets@npm:11.1.6"
+  dependencies:
+    iterare: 1.2.1
+    object-hash: 3.0.0
+    tslib: 2.8.1
+  peerDependencies:
+    "@nestjs/common": ^11.0.0
+    "@nestjs/core": ^11.0.0
+    "@nestjs/platform-socket.io": ^11.0.0
+    reflect-metadata: ^0.1.12 || ^0.2.0
+    rxjs: ^7.1.0
+  peerDependenciesMeta:
+    "@nestjs/platform-socket.io":
+      optional: true
+  checksum: 47dcafb82c2ce4d17eea08f2c61f7cca2ab83099271de5e97b76efe49e4a487eff691708d27453fe06efea527f31824c4477c2f51cbc618f60b40d5012ac378a
   languageName: node
   linkType: hard
 
@@ -2254,6 +2288,15 @@ __metadata:
   version: 13.15.3
   resolution: "@types/validator@npm:13.15.3"
   checksum: 0c385dff9dee032577ee540c59781da63a3c5cb18d0710c0b1d9f6a25b90919a8e1ff09f54a17120efa260afc8cbc76d61917d7dc71c67bcdf1391fd38eb42f2
+  languageName: node
+  linkType: hard
+
+"@types/ws@npm:^8.18.1":
+  version: 8.18.1
+  resolution: "@types/ws@npm:8.18.1"
+  dependencies:
+    "@types/node": "*"
+  checksum: 0331b14cde388e2805af66cad3e3f51857db8e68ed91e5b99750915e96fe7572e58296dc99999331bbcf08f0ff00a227a0bb214e991f53c2a5aca7b0e71173fa
   languageName: node
   linkType: hard
 
@@ -3084,8 +3127,10 @@ __metadata:
     "@nestjs/core": ^11.0.1
     "@nestjs/platform-express": ^11.0.1
     "@nestjs/platform-fastify": ^11.1.6
+    "@nestjs/platform-ws": ^11.1.6
     "@nestjs/schematics": ^11.0.0
     "@nestjs/testing": ^11.0.1
+    "@nestjs/websockets": ^11.1.6
     "@prisma/client": ^6.15.0
     "@types/bcrypt": ^6.0.0
     "@types/express": ^5.0.0
@@ -3093,6 +3138,7 @@ __metadata:
     "@types/jsonwebtoken": ^9.0.10
     "@types/node": ^22.10.7
     "@types/supertest": ^6.0.2
+    "@types/ws": ^8.18.1
     bcrypt: ^6.0.0
     class-transformer: ^0.5.1
     class-validator: ^0.14.2
@@ -3114,6 +3160,7 @@ __metadata:
     tsconfig-paths: ^4.2.0
     typescript: ^5.7.3
     typescript-eslint: ^8.20.0
+    ws: ^8.18.3
   languageName: unknown
   linkType: soft
 
@@ -6638,6 +6685,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-hash@npm:3.0.0":
+  version: 3.0.0
+  resolution: "object-hash@npm:3.0.0"
+  checksum: 80b4904bb3857c52cc1bfd0b52c0352532ca12ed3b8a6ff06a90cd209dfda1b95cee059a7625eb9da29537027f68ac4619363491eedb2f5d3dddbba97494fd6c
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.13.3":
   version: 1.13.4
   resolution: "object-inspect@npm:1.13.4"
@@ -8572,6 +8626,21 @@ __metadata:
     imurmurhash: ^0.1.4
     signal-exit: ^4.0.1
   checksum: 8dbb0e2512c2f72ccc20ccedab9986c7d02d04039ed6e8780c987dc4940b793339c50172a1008eed7747001bfacc0ca47562668a069a7506c46c77d7ba3926a9
+  languageName: node
+  linkType: hard
+
+"ws@npm:8.18.3, ws@npm:^8.18.3":
+  version: 8.18.3
+  resolution: "ws@npm:8.18.3"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ">=5.0.2"
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: d64ef1631227bd0c5fe21b3eb3646c9c91229402fb963d12d87b49af0a1ef757277083af23a5f85742bae1e520feddfb434cb882ea59249b15673c16dc3f36e0
   languageName: node
   linkType: hard
 
