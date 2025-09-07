@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
-import { REST_API_URL } from '../constants/environment';
+import { REST_API_URL } from '../../constants/environment';
 
 const client = axios.create({
   baseURL: REST_API_URL,
@@ -23,6 +23,7 @@ client.interceptors.response.use(
     const data = error.response?.data;
 
     if (data?.message) {
+      console.log('data?.message', data?.message);
       toast.error(data?.message.toString());
     } else if (data?.error) {
       toast.error(data?.error.toString());

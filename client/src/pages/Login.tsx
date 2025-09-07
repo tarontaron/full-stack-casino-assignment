@@ -1,9 +1,15 @@
 import type { TLoginForm } from '../types';
+import { useAuthStore } from '../store';
+import useLoginMutation from '../services/queries/auth/useLoginMutation';
 import LoginForm from '../components/LoginForm';
 
 const LoginPage = () => {
-  const onFormSubmit = (values: TLoginForm) => {
-    console.log('Login form submitted with values:', values);
+  const login = useAuthStore(state => state.login);
+  const { mutateAsync } = useLoginMutation();
+
+  const onFormSubmit = async (values: TLoginForm) => {
+    const { access_token } = await mutateAsync(values);
+    await login(access_token);
   };
 
   return (

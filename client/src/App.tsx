@@ -1,11 +1,26 @@
-import GuestLayout from './components/GuestLayout';
-import LoginPage from './pages/Login';
+import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+
+import { QueryProvider } from './lib';
+import { useAuthStore } from './store';
+
+import { PrivateRouter, GuestRouter } from './routes';
 
 const App = () => {
+  const init = useAuthStore(state => state.init);
+  const user = useAuthStore(state => state.user);
+
+  const router = user ? <PrivateRouter /> : <GuestRouter />
+
+  useEffect(() => {
+    init();
+  }, [init]);
+
   return (
-    <GuestLayout>
-      <LoginPage />
-    </GuestLayout>
+    <QueryProvider>
+      {router}
+      <ToastContainer />
+    </QueryProvider>
   );
 };
 
