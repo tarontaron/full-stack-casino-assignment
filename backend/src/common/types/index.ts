@@ -11,3 +11,7 @@ export interface ApplicationJWT extends JwtPayload {
 export interface AuthenticatedRequest extends FastifyRequest {
   user: ApplicationJWT;
 }
+
+export interface AuthenticatedWs extends WebSocket {
+  user: ApplicationJWT;
+}

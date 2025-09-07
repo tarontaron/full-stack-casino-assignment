@@ -7,7 +7,9 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Server, WebSocket } from 'ws';
+import { Server } from 'ws';
+
+import type { AuthenticatedWs } from '../common/types';
 
 @WebSocketGateway({
   path: '/balance',
@@ -21,20 +23,20 @@ export class BalanceGateway
   @WebSocketServer()
   server: Server;
 
-  handleConnection(client: WebSocket) {
+  handleConnection(client: AuthenticatedWs) {
     console.log(client.readyState, 'Client connected to BalanceGateway');
   }
 
-  handleDisconnect(client: WebSocket) {
+  handleDisconnect(client: AuthenticatedWs) {
     console.log(client.readyState, 'Client disconnected from BalanceGateway');
   }
 
   @SubscribeMessage('subscribe')
   handleMessage(
     @MessageBody() message: string,
-    @ConnectedSocket() client: WebSocket,
+    @ConnectedSocket() client: AuthenticatedWs,
   ) {
-    console.log('Received:', message);
+    console.log(client.user);
     // Echo back
     client.send(`Echo: ${JSON.stringify({ success: true })}`);
   }

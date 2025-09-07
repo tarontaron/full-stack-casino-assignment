@@ -4,7 +4,9 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
-import { WsAdapter } from '@nestjs/platform-ws';
+
+import { WsAuthorizedAdapter } from './common/adapters/ws-authorized.adapter';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -17,7 +19,7 @@ async function bootstrap() {
     type: VersioningType.URI,
   });
   app.useGlobalPipes(new ValidationPipe());
-  app.useWebSocketAdapter(new WsAdapter(app));
+  app.useWebSocketAdapter(new WsAuthorizedAdapter(app));
 
   await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
