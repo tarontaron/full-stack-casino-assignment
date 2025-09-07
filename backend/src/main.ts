@@ -15,6 +15,7 @@ async function bootstrap() {
     new FastifyAdapter(),
   );
 
+  app.enableCors();
   app.enableVersioning({
     type: VersioningType.URI,
   });
