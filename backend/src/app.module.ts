@@ -7,6 +7,7 @@ import { WalletsModule } from './wallets/wallets.module';
 import { GamesModule } from './games/games.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { BalanceModule } from './balance/balance.module';
+import { StatisticModule } from './statistic/statistic.module';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -20,6 +21,7 @@ import { AppService } from './app.service';
     TransactionsModule,
     WalletsModule,
     BalanceModule,
+    StatisticModule,
   ],
   controllers: [AppController],
   providers: [AppService],
