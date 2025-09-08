@@ -26,3 +26,10 @@ export type TAverageBetSizeRow = {
   game_name: string;
   average_bet_size: number;
 };
+
+export type TRtpComparisonRow = {
+  game_id: number;
+  game_name: string;
+  theoretical_rtp: number;
+  actual_rtp: number;
+};

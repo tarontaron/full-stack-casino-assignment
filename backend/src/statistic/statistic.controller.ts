@@ -45,4 +45,11 @@ export class StatisticController {
   getAverageBetSizePerGame() {
     return this.statisticService.getAverageBetSizePerGame();
   }
+
+  @Get('getRTPComparison')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.OPERATOR)
+  getRTPComparison() {
+    return this.statisticService.getRTPComparison();
+  }
 }

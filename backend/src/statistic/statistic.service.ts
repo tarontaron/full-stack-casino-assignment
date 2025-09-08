@@ -5,6 +5,7 @@ import {
   TMostPopularGameRow,
   TPlayerRevenueRow,
   TRevenueByGameRow,
+  TRtpComparisonRow,
   TTotalCasinoRevenueRow,
 } from './statistic.types';
 
@@ -97,6 +98,28 @@ export class StatisticService {
     JOIN bets b ON b.game_id = g.id
     GROUP BY g.id, g.name
     ORDER BY average_bet_size DESC;
+  `;
+  }
+
+  async getRTPComparison(): Promise<TRtpComparisonRow[]> {
+    return this.prisma.$queryRaw<TRtpComparisonRow[]>`
+    SELECT
+      g.id AS game_id,
+      g.name AS game_name,
+      g.rtp AS theoretical_rtp,
+      CAST(
+        CASE 
+          WHEN SUM(CASE WHEN t.type = 'BET' THEN t.amount ELSE 0 END) > 0
+          THEN (SUM(CASE WHEN t.type = 'WIN' THEN t.amount ELSE 0 END) 
+               / SUM(CASE WHEN t.type = 'BET' THEN t.amount ELSE 0 END)) * 100
+          ELSE 0
+        END
+      AS NUMERIC(5,2)) AS actual_rtp
+    FROM games g
+    JOIN bets b ON b.game_id = g.id
+    JOIN transactions t ON t.bet_id = b.id
+    GROUP BY g.id, g.name, g.rtp
+    ORDER BY g.id;
   `;
   }
 }
