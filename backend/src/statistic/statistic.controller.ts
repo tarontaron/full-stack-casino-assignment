@@ -31,4 +31,18 @@ export class StatisticController {
   getRevenueByGames() {
     return this.statisticService.getCasinoRevenueByGame();
   }
+
+  @Get('mostPopularGames')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.OPERATOR)
+  getMostPopularGames() {
+    return this.statisticService.getMostPopularGames();
+  }
+
+  @Get('averageBetSizePerGame')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.OPERATOR)
+  getAverageBetSizePerGame() {
+    return this.statisticService.getAverageBetSizePerGame();
+  }
 }

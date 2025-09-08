@@ -14,3 +14,15 @@ export type TRevenueByGameRow = {
 export type TTotalCasinoRevenueRow = {
   revenue: number;
 };
+
+export type TMostPopularGameRow = {
+  game_id: number;
+  game_name: string;
+  total_bets: number;
+};
+
+export type TAverageBetSizeRow = {
+  game_id: number;
+  game_name: string;
+  average_bet_size: number;
+};
