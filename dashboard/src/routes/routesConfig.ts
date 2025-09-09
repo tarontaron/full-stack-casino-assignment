@@ -7,6 +7,8 @@ const routesConfig = {
     players: '/players',
     gamesByRevenue: '/gamesByRevenue',
     mostPopularGames: '/mostPopularGames',
+    gamesAverage: '/gamesAverage',
+    rtpComparison: '/rtpComparison',
   },
 };
 

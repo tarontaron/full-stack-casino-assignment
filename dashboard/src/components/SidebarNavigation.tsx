@@ -15,8 +15,10 @@ const navigationItems: MenuItem[] = [
     children: [
       { key: routesConfig.private.gamesByRevenue, label: 'Games by Revenue' },
       { key: routesConfig.private.mostPopularGames, label: 'Most Popular Games' },
+      { key: routesConfig.private.gamesAverage, label: 'Games average bet size' },
     ],
-  }
+  },
+  { key: routesConfig.private.rtpComparison, label: 'RTP' }
 ];
 
 const SidebarNavigation = () => {

@@ -1,5 +1,5 @@
-import auth from './auth';
-import statistic from './statistic'
+import auth from './auth.ts';
+import statistic from './statistic.ts'
 
 const api = {
   auth,
