@@ -19,8 +19,7 @@ export class StatisticService {
             u.id,
             u.first_name || ' ' || u.last_name AS name,
             u.email,
-            COALESCE(ABS(
-                             SUM(
+            COALESCE(ABS(SUM(
                     CASE
                         WHEN t.type = 'BET' AND t.outcome = 'LOSS' THEN t.amount  -- casino earns
                         WHEN t.type = 'WIN' THEN -t.amount                        -- casino pays out
@@ -40,13 +39,13 @@ export class StatisticService {
   async getTotalCasinoRevenue(): Promise<TTotalCasinoRevenueRow> {
     const result = await this.prisma.$queryRaw<TTotalCasinoRevenueRow[]>`
       SELECT 
-        COALESCE(SUM(
+        COALESCE(ABS(SUM(
           CASE 
             WHEN t.type = 'BET' AND t.outcome = 'LOSS' THEN t.amount
             WHEN t.type = 'WIN' THEN -t.amount
             ELSE 0
           END
-        ), 0) AS revenue
+        )), 0) AS revenue
       FROM transactions t;
     `;
 
@@ -58,13 +57,13 @@ export class StatisticService {
       SELECT
         g.id AS game_id,
         g.name AS game_name,
-        COALESCE(SUM(
+        COALESCE(ABS(SUM(
           CASE
             WHEN t.type = 'BET' AND t.outcome = 'LOSS' THEN t.amount 
             WHEN t.type = 'WIN' THEN -t.amount
             ELSE 0
           END
-        ), 0) AS revenue
+        )), 0) AS revenue
       FROM games g
       JOIN bets b ON b.game_id = g.id
       JOIN transactions t ON t.bet_id = b.id
@@ -73,7 +72,7 @@ export class StatisticService {
     `;
   }
 
-  //We can create most popular games configurable. In this case it returns games with bets more than 10
+  // We can create most popular games configurable. In this case it returns games with bets more than 10
   async getMostPopularGames(): Promise<TMostPopularGameRow[]> {
     return this.prisma.$queryRaw<TMostPopularGameRow[]>`
     SELECT
