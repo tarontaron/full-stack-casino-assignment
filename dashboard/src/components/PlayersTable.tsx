@@ -29,9 +29,6 @@ const PlayersTable = () => {
   },
 ];
 
-  if (isLoading) return <p>Загрузка...</p>;
-  if (isError) return <p>Ошибка при загрузке профиля</p>;
-
   return(
     <div>
       <h1> Players by revenue </h1>
