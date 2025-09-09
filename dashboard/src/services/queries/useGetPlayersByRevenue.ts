@@ -11,6 +11,7 @@ const usePlayersByRevenue = () => {
       const { data } = await api.statistic.playersByRevenue();
       return data;
     },
+    refetchInterval: 10000,
   });
 };
 

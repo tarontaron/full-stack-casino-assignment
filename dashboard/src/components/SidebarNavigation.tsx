@@ -14,6 +14,7 @@ const navigationItems: MenuItem[] = [
     label: 'Games',
     children: [
       { key: routesConfig.private.gamesByRevenue, label: 'Games by Revenue' },
+      { key: routesConfig.private.mostPopularGames, label: 'Most Popular Games' },
     ],
   }
 ];

@@ -1,6 +1,6 @@
 import type { TStoreUser } from '../../store/auth/types.ts';
 import type { TAuthResponse, TLoginPayload } from '../../types/auth';
-import client from '../client';
+import client from '../client.ts';
 
 const endpoints = {
   findMe: () => client.get<TStoreUser>('/v1/users/me'),

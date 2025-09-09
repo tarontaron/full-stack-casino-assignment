@@ -1,5 +1,9 @@
 import { Chart as ChartJS, ArcElement, Legend } from "chart.js";
 import { Pie } from 'react-chartjs-2';
+
+import useGetTotalRevenue from '../services/queries/useGetTotalRevenue';
+import { Flex, Typography } from 'antd';
+
 ChartJS.register(ArcElement, Legend);
 
 const pieChartData = {
@@ -24,10 +28,13 @@ const pieChartData = {
 };
 
 const Dashboard = () => {
+  const { data } = useGetTotalRevenue();
+
   return (
-    <div style={{ width: '50%', height: 200 }}>
+    <Flex gap={32} vertical style={{ width: '50%', height: 200 }}>
+      <Typography>Total Revenue: {data?.revenue}</Typography>
       <Pie data={pieChartData} />
-    </div>
+    </Flex>
   );
 };
 

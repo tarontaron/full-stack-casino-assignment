@@ -6,6 +6,7 @@ const routesConfig = {
     index: '/',
     players: '/players',
     gamesByRevenue: '/gamesByRevenue',
+    mostPopularGames: '/mostPopularGames',
   },
 };
 

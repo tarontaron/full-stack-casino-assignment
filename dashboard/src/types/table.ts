@@ -11,6 +11,12 @@ export type TRevenueByGameRow = {
   revenue: number;
 };
 
+export type TMostPopularGameRow = {
+  game_id: number;
+  game_name: string;
+  total_bets: number;
+};
+
 export type TRevenueTotal = {
   revenue: string;
 }

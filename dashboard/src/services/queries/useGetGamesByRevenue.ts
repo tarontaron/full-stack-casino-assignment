@@ -11,6 +11,7 @@ const useGamesByRevenue = () => {
       const { data } = await api.statistic.gamesByRevenue();
       return data;
     },
+    refetchInterval: 10000,
   });
 };
 

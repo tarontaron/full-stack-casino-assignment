@@ -7,6 +7,7 @@ import routesConfig from './routesConfig';
 const Dashboard = lazy(() => import('../pages/Dashboard'));
 const Players = lazy(() => import('../pages/Players'));
 const GamesByRevenue = lazy(() => import('../pages/GamesByRevenue'));
+const MostPopularGames = lazy(() => import('../pages/MostPopularGames'));
 
 const PrivateRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const PrivateRoutes = () => {
           <Route path={routesConfig.private.index} element={<Dashboard />} />
           <Route path={routesConfig.private.players} element={<Players />} />
           <Route path={routesConfig.private.gamesByRevenue} element={<GamesByRevenue />} />
+          <Route path={routesConfig.private.mostPopularGames} element={<MostPopularGames />} />
         </Route>
       </Routes>
     </Suspense>
