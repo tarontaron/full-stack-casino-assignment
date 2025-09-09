@@ -1,6 +1,6 @@
 import type { TLoginForm } from '../types';
 import { useAuthStore } from '../store';
-import useLoginMutation from '../services/queries/auth/useLoginMutation';
+import useLoginMutation from '../services/queries/useLoginMutation.ts';
 import LoginForm from '../components/LoginForm';
 
 const LoginPage = () => {

@@ -1,11 +1,11 @@
 import { type ReactNode, useEffect } from 'react';
-import { Flex, Layout } from 'antd';
+import { Button, Flex, Layout } from 'antd';
 
 import { WS_API_URL } from '../constants/environment';
 import { ESocketEvents } from '../types';
 import { useAuthStore, useBalanceStore } from '../store';
 import useWebSocket from '../hooks/useWebSocket';
-import useGetBalanceQuery from '../services/queries/balance/useGetBalanceQuery';
+import useGetBalanceQuery from '../services/queries/useGetBalanceQuery.ts';
 
 import Balance from './Balance';
 
@@ -19,6 +19,7 @@ type TBalanceResponse = {
 
 const PrivateLayout = ({ children }: TGuestLayoutProps) => {
   const user = useAuthStore(state => state.user)!;
+  const logout = useAuthStore(state => state.logout);
   const setBalance = useBalanceStore(state => state.setBalance);
 
   const { data: initialBalance } = useGetBalanceQuery();
@@ -49,6 +50,7 @@ const PrivateLayout = ({ children }: TGuestLayoutProps) => {
         <Flex align="center" justify="space-between">
           Hi {user.first_name} !
           <Balance />
+          <Button type="primary" onClick={logout}>Logout</Button>
         </Flex>
       </Layout.Header>
       <Layout.Content style={{ padding: '0 50px', marginTop: '64px', height: 'calc(100vh - 228px)' }}>

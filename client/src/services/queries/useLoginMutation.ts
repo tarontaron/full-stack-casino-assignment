@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import type { TLoginPayload } from '../../../types';
-import api from '../../api';
+import type { TLoginPayload } from '../../types';
+import api from '../api';
 
 const useLoginMutation = () => {
   const mutationKey = ['login'];

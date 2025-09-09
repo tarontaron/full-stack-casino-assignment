@@ -1,13 +1,11 @@
-import { Fragment } from 'react';
 import PrivateLayout from '../components/PrivateLayout';
+import ProfilePage from '../pages/Profile';
 
 const PrivateRouter = () => {
   return (
-    <Fragment>
-      <PrivateLayout>
-        vzgo
-      </PrivateLayout>
-    </Fragment>
+    <PrivateLayout>
+      <ProfilePage />
+    </PrivateLayout>
   );
 };
 
