@@ -1,8 +1,10 @@
+import { Button, Flex, Layout } from 'antd';
 import { Navigate, Outlet } from 'react-router-dom';
 
 import { useAuthStore } from '../store/auth';
 import routesConfig from '../routes/routesConfig';
-import { Button, Flex, Layout } from 'antd';
+
+import SidebarNavigation from './SidebarNavigation';
 
 const PrivateLayout = () => {
   const user = useAuthStore(state => state.user);
@@ -17,9 +19,14 @@ const PrivateLayout = () => {
           <Button type="primary" onClick={logout}>Logout</Button>
         </Flex>
       </Layout.Header>
-      <Layout.Content style={{ padding: '0 50px', marginTop: '64px', height: 'calc(100vh - 228px)' }}>
-        {<Outlet />}
-      </Layout.Content>
+      <Layout>
+        <Layout.Sider>
+          <SidebarNavigation />
+        </Layout.Sider>
+        <Layout.Content style={{ padding: '0 50px', marginTop: '64px', height: 'calc(100vh - 228px)' }}>
+          {<Outlet />}
+        </Layout.Content>
+      </Layout>
       <Layout.Footer style={{ textAlign: 'center' }}>
         Footer
       </Layout.Footer>

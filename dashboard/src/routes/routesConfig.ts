@@ -4,7 +4,8 @@ const routesConfig = {
   },
   private: {
     index: '/',
-    dashboard: '/dashboard',
+    players: '/players',
+    gamesByRevenue: '/gamesByRevenue',
   },
 };
 
