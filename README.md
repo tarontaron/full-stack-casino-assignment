@@ -24,7 +24,7 @@ This repository contains the **backend**, **client (frontend app)**, and **dashb
 
 ## ⚙️ Prerequisites
 - npm or yarn
-- Database installed & running (configured in `.env`)
+- Database installed & running (configured in `.env`) (PostgresSQL)
 
 ---
 
@@ -98,5 +98,29 @@ By default, the dashboard also runs on **http://localhost:5173** (can be changed
     - Options:
         - Use [prisma-pagination](https://www.npmjs.com/package/prisma-pagination) package
         - Implement a **custom pagination strategy** (cursor-based or offset-based).
+
+- **Message Broker (RabbitMQ / Kafka)**:
+    - Can be used for **event-driven communication** between services.
+    - Example cases:
+        - Processing bets (`doBet` action) asynchronously.
+        - Broadcasting game outcomes or updates to multiple consumers.
+        - Handling high-volume event logs (e.g., user actions, transactions, audits).
+        - Queueing long-running jobs (e.g., bonus calculations, settlement).
+
+- **Redis**:
+    - Can be used for **caching, pub/sub, and fast access storage**.
+    - Example cases:
+        - Store live bet states in memory for quick retrieval.
+        - Implement **session management** or token blacklisting.
+        - Use Redis Pub/Sub for **real-time notifications** (bet status updates, wins/losses).
+        - Cache frequently accessed data (statistics, leaderboards, dashboards).
+
+- **WebSockets Enhancements**:
+    - Already used for live game updates.
+    - Extend WebSocket usage for **dashboard real-time data**:
+        - Live user activity tracking.
+        - Real-time bet flow monitoring.
+        - Instant alerts (e.g., suspicious betting patterns).
+    - Use Redis Pub/Sub or Kafka Streams to broadcast events across multiple backend instances.
 
 ---
